@@ -2,7 +2,7 @@ const form = document.querySelector('form');
 
 document.addEventListener('DOMContentLoaded', () => {
     getLocalStorage();
-
+    
     form.addEventListener('input', () => {
         updateLocalStorage();
     })
