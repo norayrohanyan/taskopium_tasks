@@ -7,6 +7,7 @@ body {
 
 .comment {
     border-left: 2px solid #ccc;
+    border-bottom: 2px solid #ccc;
     padding-left: 10px;
     margin-bottom: 10px;
     background-color: #f9f9f9;
