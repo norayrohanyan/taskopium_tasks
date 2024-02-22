@@ -89,7 +89,24 @@ function filterByTags(checked, tagId) {
             displayProducts(data);
         }
     } else {
-        filterByCategories();
+        displayProducts(products);
+    }
+}
+
+function filterByTags(checked, tagId) {
+    const category = document.getElementById('category').value;
+
+    if (checked) {
+        const selectedTags = Array.from(document.querySelectorAll('.tags input:checked')).map(input => input.id);
+        let data = products.filter(product => selectedTags.every(tag => product.tags.includes(tag)));
+
+        if (category !== 'all') {
+            data = data.filter(product => product.category.toLowerCase() === category.toLowerCase());
+        }
+
+        displayProducts(data);
+    } else {
+        filterByCategories(); 
     }
 }
 
@@ -103,4 +120,3 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('category').addEventListener('change', () => {
     filterByCategories();
 })
-
