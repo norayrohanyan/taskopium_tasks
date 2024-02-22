@@ -28,24 +28,33 @@ const comments = [
 ];
 
 function generateComments(comment, lvl) {
-    const intend = lvl * 30;
-    const div = document.createElement('div');
-    div.classList.add('comment');
-    div.style.marginLeft = intend + 'px';
-    const text = document.createElement('p');
-    console.log(comment.text);
-    text.textContent = comment.text;
-    div.appendChild(text);
-    document.getElementById('container').appendChild(div);
+  const intend = lvl * 30;
+  const section = document.createElement('section');
+  section.classList.add('comment');
+  section.style.marginLeft = intend + 'px';
+
+  const p = document.createElement('p');
+  p.textContent = comment.text;
+  section.appendChild(p);
+
+  if (comment.replies.length > 0) {
+      const ul = document.createElement('ul');
+      comment.replies.forEach(reply => {
+          const li = document.createElement('li');
+          li.appendChild(generateComments(reply, lvl + 1));
+          ul.appendChild(li);
+      });
+      section.appendChild(ul);
+  }
+
+  return section;
 }
 
 function displayComments(comments, lvl) {
-    comments.forEach(comment => {
-        generateComments(comment, lvl + 1);
-        if (comment.replies.length > 0) {
-            displayComments(comment.replies, lvl + 1);
-        }
-    });
+  const container = document.getElementById('container');
+  comments.forEach(comment => {
+      container.appendChild(generateComments(comment, lvl));
+  });
 }
 
 displayComments(comments, 0);
