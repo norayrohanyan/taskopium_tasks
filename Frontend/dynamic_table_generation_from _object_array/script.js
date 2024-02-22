@@ -24,10 +24,20 @@ function generateTableHeader() {
     const tr = document.createElement('tr');
 
     Object.keys(employees[0]).forEach(key => {
-        const th = document.createElement('th');
-        th.textContent = key;
-        tr.appendChild(th);
+        if (typeof employees[0][key] == 'object' && !Array.isArray(employees[0][key])) {
+            Object.keys(employees[0][key]).forEach(subKey => {
+                const th = document.createElement('th');
+                th.textContent = `${key} ${subKey}`;
+                tr.appendChild(th);
+            })
+        }
+        else {
+            const th = document.createElement('th');
+            th.textContent = key;
+            tr.appendChild(th);
+        }
     });
+    
     thead.appendChild(tr);
 }
 
@@ -36,33 +46,27 @@ function generateTableData() {
 
     employees.forEach(employee => {
         const tr = document.createElement('tr');
+
         Object.values(employee).forEach(value => {
             const td = document.createElement('td');
             if (Array.isArray(value)) {
                 td.textContent = value.join(', ');
-            }
-            else if (typeof value === 'object') {
-                td.textContent = displayObject(value);
+                tr.appendChild(td);
             } 
-            else {
+             else if (typeof value === 'object') {
+                Object.values(value).forEach(subValue => {
+                    const subTd = document.createElement('td');
+                    subTd.textContent = subValue;
+                    tr.appendChild(subTd);
+                });
+            }  else {
                 td.textContent = value;
+                tr.appendChild(td);
             }
-            tr.appendChild(td);
-        })
+        });
+
         tbody.appendChild(tr);
     });
-}
-
-function displayObject(obj, result = '') {
-    for (const [key, value] of Object.entries(obj)) {
-        if (typeof value === 'object') {
-            result += `${key}:  ${displayObject(value, result)} `;
-        } else {
-            result += `${key}: ${value} `;
-        }
-    }
-
-    return result;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
