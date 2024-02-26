@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+
+#field-controls {
+    margin-bottom: 20px;
+}
+
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+select, input[type="text"] {
+    width: 200px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+
+button {
+    padding: 8px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#form-fields {
+    min-height: 50px;
+    border: 2px dashed #ccc;
+    padding: 10px;
+}
+
+.draggable {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    cursor: move;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.draggable label {
+    font-weight: bold;
+}
+
